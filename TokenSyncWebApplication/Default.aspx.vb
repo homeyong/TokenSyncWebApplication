@@ -1,15 +1,15 @@
-﻿Imports System.Data
-
-Public Class _Default
+﻿Public Class _Default
     Inherits Page
 
     Public tokenModel As New TokenViewModels.SaveViewModel
     Private myDB As New MySqlDatabase
+    Private pieChartJson As String
 
 #Region "EventList"
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         If Not Me.IsPostBack Then
             Me.BindGrid()
+            Me.BindPieChart()
         End If
     End Sub
 
@@ -119,21 +119,14 @@ Public Class _Default
         Dim records As DataRow = myDB.GetDataTable($"select * from token where symbol='{symbol}'").AsEnumerable.FirstOrDefault
         If Not records Is Nothing Then
             With records
-                tokenModel.Name = .Item("name")
-                tokenModel.Symbol = .Item("symbol")
-                tokenModel.ContractAddress = .Item("contract_address")
-                tokenModel.TotalSupply = .Item("total_supply")
-                tokenModel.TotalHolders = .Item("total_holders")
-            End With
-
-            With tokenModel
-                txtName.Text = tokenModel.Name
-                txtSymbol.Text = tokenModel.Symbol
-                txtContractAddress.Text = tokenModel.ContractAddress
-                txtTotalSupply.Text = tokenModel.TotalSupply
-                txtTotalHolders.Text = tokenModel.TotalHolders
+                txtName.Text = .Item("name")
+                txtSymbol.Text = .Item("symbol")
+                txtContractAddress.Text = .Item("contract_address")
+                txtTotalSupply.Text = .Item("total_supply")
+                txtTotalHolders.Text = .Item("total_holders")
             End With
         End If
+        myDB.Close()
     End Sub
 
 
@@ -160,6 +153,28 @@ Public Class _Default
         GridView1.DataBind()
         GridView1.UseAccessibleHeader = True
         GridView1.HeaderRow.TableSection = TableRowSection.TableHeader
+    End Sub
+
+    ''' <summary>
+    ''' Retrieve token information from database for PieChart
+    ''' </summary>
+    Private Sub BindPieChart()
+        pieChartJson = ("[")
+
+        myDB.EstablishConnection()
+        Dim tokenDt As New DataTable
+        'tokenView that contain the fields total supply percentage
+        tokenDt = myDB.GetDataTable($"select * from TokenView")
+        For Each records As DataRow In tokenDt.AsEnumerable
+            Dim result As New TokenViewModels.PieChartView
+            With records
+                result.Name = .Item("symbol")
+                result.Y = Decimal.Parse(.Item("totalpercent").ToString.Replace("%", ""))
+                pieChartJson = $"{pieChartJson}{{name:""{ result.Name}"",y:{result.Y}}},"
+            End With
+        Next
+        pieChartJson = pieChartJson.Remove(pieChartJson.Length - 1) & "]"
+        myDB.Close()
     End Sub
 
 

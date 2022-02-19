@@ -38,4 +38,9 @@ Public Class TokenViewModels
             End Set
         End Property
     End Class
+
+    Public Class PieChartView
+        Public Property Name As String
+        Public Property Y As Decimal
+    End Class
 End Class

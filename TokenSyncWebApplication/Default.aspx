@@ -41,7 +41,56 @@
                 </form>
             </div>
             <div class="col">
-                TESTING
+                <script src="/Scripts/jquery-1.11.3.min.js" type="text/javascript"></script>
+                <script src="/Scripts/highcharts.js" type="text/javascript"></script>
+                <script src="/Scripts/exporting.js" type="text/javascript"></script>
+                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <script type="text/javascript">  
+                    $(function () {
+
+                        $(document).ready(function () {
+                            var chart = new Highcharts.Chart
+                                ({
+                                    // Build the chart  
+
+                                    chart:
+                                    {
+                                        plotBackgroundColor: null,
+                                        plotBorderWidth: null,
+                                        plotShadow: false,
+                                        type: 'pie',
+                                        renderTo: 'container'
+                                    },
+                                    title:
+                                    {
+                                        text: 'Token Statistics by Total Supply'
+                                    },
+                                    tooltip:
+                                    {
+                                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                    },
+                                    plotOptions:
+                                    {
+                                        pie:
+                                        {
+                                            allowPointSelect: true,
+                                            cursor: 'pointer',
+                                            dataLabels: {
+                                                enabled: true,
+                                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                            }
+                                        }
+                                    },
+                                    series: [
+                                        {
+                                            name: 'Brands',
+                                            colorByPoint: true,
+                                            data: [{ name: "VEN", y: 2.5777 }, { name: "ZIR", y: 3.8158 }, { name: "MKR", y: 3.2939 }, { name: "BNB", y: 1.1875 }, { name: "ABC", y: 71.4872 }, { name: "TQW", y: 8.8190 }, { name: "TEQ", y: 8.8190 }]
+                                        }]
+                                });
+                        });
+                    });
+                </script>
             </div>
         </div>
         <div class="row mb-5">
