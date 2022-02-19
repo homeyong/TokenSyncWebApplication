@@ -85,7 +85,7 @@
                                         {
                                             name: 'Brands',
                                             colorByPoint: true,
-                                            data: [{ name: "VEN", y: 2.5777 }, { name: "ZIR", y: 3.8158 }, { name: "MKR", y: 3.2939 }, { name: "BNB", y: 1.1875 }, { name: "ABC", y: 71.4872 }, { name: "TQW", y: 8.8190 }, { name: "TEQ", y: 8.8190 }]
+                                            data: [{ name: "VEN", y: 23.7028 }, { name: "ZIR", y: 35.0880 }, { name: "MKR", y: 30.2892 }, { name: "BNB", y: 10.9200 }]
                                         }]
                                 });
                         });
