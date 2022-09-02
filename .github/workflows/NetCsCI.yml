@@ -37,4 +37,15 @@ jobs:
         
       - name: Build the solution
         run: msbuild TokenSyncWebApplication.sln
-        
+  
+release:
+  runs-on: [windows-latest]
+  needs: build
+  steps:  
+    -name: download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: site
+    -name: Test Download
+      run: ls -R
+    
