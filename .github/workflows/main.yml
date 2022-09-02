@@ -43,10 +43,17 @@ jobs:
     runs-on: [windows-latest]
     needs: build
     steps:  
+      - name: Step 1 - Create a temporary artifact downloads folder
+        run: mkdir staging
+        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+
       - name: Download a Build Artifact
         uses: actions/download-artifact@v3.0.0
         with:
-          -name: Test Download
+          name: filetest
+          path: staging
       - name: Download a Build Artifact
         run: ls -R
     
