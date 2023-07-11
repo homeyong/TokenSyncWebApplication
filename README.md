@@ -1,6 +1,6 @@
 # TokenSyncWebApplication
 Token Sync WebApplication
-This project is to display token price and detail information NICEEE
+This project is to display token price and detail information NICEEE 99
 
 The purpose of the application is to create, update and show statistics for token information.
 
